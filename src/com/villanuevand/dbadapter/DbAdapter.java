@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * @author Villanuevand
+ *
+ */
 public class DbAdapter {
 
 	DbHelper helper;
@@ -15,6 +19,11 @@ public class DbAdapter {
 		helper = new DbHelper(context);
 	}
 	
+	/**Inserta la data a la base de datos.
+	 * @param name
+	 * @param password
+	 * @return
+	 */
 	public long insertData(String name, String password){	
 		SQLiteDatabase db = helper.getWritableDatabase();
 		ContentValues contentValues = new ContentValues();
@@ -24,6 +33,9 @@ public class DbAdapter {
 		return id;
 	}
 	
+	/**Obtiene todos los valores de la base de datos.
+	 * @return
+	 */
 	public String getAllData(){
 		SQLiteDatabase db = helper.getWritableDatabase();
 		/*Sencia SQL a ejecutar
@@ -39,6 +51,32 @@ public class DbAdapter {
 			buffer.append(cid + " " + name + " " + password + "\n");
 		}
 		return buffer.toString();
+	}
+	
+	
+	/**Obtiene los valores nombre y contraseña, de un usuario especifico.
+	 * @param name
+	 * @return
+	 */
+	public String getData(String name){
+		SQLiteDatabase db = helper.getWritableDatabase();
+		/*Sentencia SQL a ejecutar
+		 * SELECT name,password from user where name="name";
+		 */
+		String[] columns = {helper.COLUMN_NAME_NAME,helper.COLUMN_NAME_PASSWORD};
+		//Estableciendo la consulta SQL
+		Cursor cursor = db.query(helper.TABLE_NAME, columns, helper.COLUMN_NAME_NAME +" = '"+ name +"'", null, null, null, null, null);
+		StringBuffer buffer = new StringBuffer();
+		while (cursor.moveToNext()) {
+			//Obteniendo los valores de los indices de las columnas.
+			int index1 = cursor.getColumnIndex(helper.COLUMN_NAME_NAME);
+			int index2 = cursor.getColumnIndex(helper.COLUMN_NAME_PASSWORD);
+			String nameCol = cursor.getString(index1);
+			String passCol = cursor.getString(index2);
+			buffer.append(nameCol + " " + passCol +"\n");					
+		}
+		return buffer.toString();
+		
 	}
 	
 	static class DbHelper extends SQLiteOpenHelper{

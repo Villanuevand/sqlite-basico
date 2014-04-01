@@ -47,6 +47,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"      
         android:text="@string/getall" />
+
+    <EditText
+        android:id="@+id/nameValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingresa el nombre del usuario para saber la contraseña"
+        android:ems="12" />
+
+    <Button
+        android:id="@+id/getDetail"
+        android:onClick="getDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/getdetail" />
+    
 </LinearLayout>
 
 

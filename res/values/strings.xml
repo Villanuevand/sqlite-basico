@@ -7,7 +7,8 @@
     <string name="password">Contraseña</string>
     
     <!-- Titulo Botones -->
-    <string name="add">Add User</string>
-    <string name="getall">Get All</string>
+    <string name="add">Agregar Usuario</string>
+    <string name="getall">Obtener Todo</string>
+    <string name="getdetail">Obtener Detalle</string>
 
 </resources>

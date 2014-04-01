@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
-	private EditText userName,password;
+	private EditText userName,password,name;
 	private DbAdapter helper;
 	private static final String TAG_SQL = "EJEMPLO-SQLITE";
 	
@@ -22,7 +22,8 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		userName = (EditText) findViewById(R.id.userNameValue);
-		password = (EditText) findViewById(R.id.passwordValue);	
+		password = (EditText) findViewById(R.id.passwordValue);
+		name = (EditText) findViewById(R.id.nameValue);
 		helper = new DbAdapter(getBaseContext());		
 	}
 	
@@ -42,8 +43,13 @@ public class MainActivity extends ActionBarActivity {
 	
 	public void viewDetails(View view){
 		String data = helper.getAllData();
-		Toast.makeText(getApplication(), data, Toast.LENGTH_LONG).show();
-		
+		Toast.makeText(getApplication(), data, Toast.LENGTH_LONG).show();	
+	}
+	
+	public void getDetail(View view){
+		String n = name.getText().toString();
+		String result = helper.getData(n);
+		Toast.makeText(getBaseContext(), result, Toast.LENGTH_LONG).show();
 	}
 
 	@Override
